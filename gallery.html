@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معرض صوري - Elsawy Design</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            padding-top: 80px;
+        }
+
+        .gallery-header {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .gallery-header h1 {
+            font-size: 3rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .gallery-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .gallery-grid-full {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-item-full {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 3px solid var(--border-color);
+            background: var(--bg-secondary);
+            aspect-ratio: 1;
+        }
+
+        .gallery-item-full:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px var(--shadow-color);
+        }
+
+        .gallery-item-full img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item-full:hover img {
+            transform: scale(1.1);
+            filter: brightness(1.2);
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            background: var(--accent-gradient);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 5px 20px var(--shadow-color);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px var(--shadow-color);
+        }
+
+        .gallery-modal {
+            display: none;
+            position: fixed;
+            z-index: 3000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .gallery-modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .gallery-modal img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 15px;
+        }
+
+        .gallery-close {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 3rem;
+            color: white;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-close:hover {
+            background: var(--accent-primary);
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="لوجو.jpg" alt="Elsawy" class="logo-image">
+                <h2>Elsawy Design</h2>
+            </div>
+            <div class="nav-actions">
+                <button id="themeToggle" class="theme-toggle">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <a href="index.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i> رجوع للصفحة الرئيسية
+    </a>
+
+    <div class="gallery-header">
+        <h1>🌟 معرض صوري الشخصية 🌟</h1>
+        <p>لحظات مميزة من رحلة حياتي</p>
+    </div>
+
+    <div class="gallery-container">
+        <div class="gallery-grid-full">
+            <div class="gallery-item-full">
+                <img src="Me17.jpg" alt="أحمد الصاوي">
+            </div>
+            <div class="gallery-item-full">
+                <img src="ملعب.jpg" alt="أحمد الصاوي">
+            </div>
+            <div class="gallery-item-full">
+                <img src="Me18.jpg" alt="أحمد الصاوي">
+            </div>
+            <div class="gallery-item-full">
+                <img src="Me7.jpg" alt="أحمد الصاوي">
+            </div>
+            <div class="gallery-item-full">
+                <img src="Me17.jpg" alt="أحمد الصاوي">
+            </div>
+            <div class="gallery-item-full">
+                <img src="Me19.jpg" alt="أحمد الصاوي">
+            </div>
+            <div class="gallery-item-full">
+                <img src="Me6.jpg" alt="أحمد الصاوي">
+            </div>
+            <div class="gallery-item-full">
+                <img src="Me15.jpg" alt="أحمد الصاوي">
+            </div>
+            <div class="gallery-item-full">
+                <img src="Me5.jpg" alt="أحمد الصاوي">
+            </div>
+            <div class="gallery-item-full">
+                <img src="Me4.jpg" alt="أحمد الصاوي">
+            </div>
+            <div class="gallery-item-full">
+                <img src="Me11.jpg" alt="أحمد الصاوي">
+            </div>
+            <div class="gallery-item-full">
+                <img src="Me15.jpg" alt="أحمد الصاوي">
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal للصور -->
+    <div id="galleryModal" class="gallery-modal">
+        <span class="gallery-close">&times;</span>
+        <div class="gallery-modal-content">
+            <img src="" alt="صورة أحمد الصاوي">
+        </div>
+    </div>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        
+        function updateThemeIcon(theme) {
+            themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        }
+        updateThemeIcon(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        // Gallery Modal
+        const modal = document.getElementById('galleryModal');
+        const modalImg = modal.querySelector('img');
+        const closeBtn = modal.querySelector('.gallery-close');
+        const galleryItems = document.querySelectorAll('.gallery-item-full');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                modalImg.src = img.src;
+                modal.style.display = 'block';
+            });
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

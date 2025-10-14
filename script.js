@@ -390,10 +390,12 @@ closeChatbot.addEventListener('click', () => {
     chatbot.style.display = 'none';
 });
 
-// Enhanced Professional Chatbot with AI-like responses
+// Enhanced Professional AI Chatbot with Smart Responses
 const botResponses = {
+    // سياق الذكاء الاصطناعي
+    'ai_context': 'أنا مساعد ذكي متطور مدعوم بتقنيات الذكاء الاصطناعي، تم برمجتي لفهم سياق المحادثة وتقديم إجابات دقيقة ومفيدة.',
     // Greetings
-    'مرحبا': '🌟 أهلاً وسهلاً بك في Elsawy Design! \n\n🤖 أنا المساعد الذكي المطور للمصمم أحمد الصاوي، متاح 24/7 لمساعدتك في:\n\n🎨 استكشاف خدماتنا المتنوعة والمبتكرة\n💰 الحصول على عروض أسعار فورية ومخصصة\n⏰ معرفة جدولة المشاريع والمواعيد\n📞 التواصل المباشر مع المصمم\n🎁 العروض والخصومات الحصرية\n\n✨ يمكنني أيضاً:\n• توجيهك لطلب المشروع عبر الواتساب مباشرة\n• تقديم نصائح تصميمية\n• شرح تفاصيل كل خدمة\n\n💬 اكتب ما تريد أو جرب: "خدمات" - "أسعار" - "طلب مشروع"',
+    'مرحبا': '🌟 أهلاً بيك في Elsawy Design! \n\n🤖 أنا المساعد الذكي بتاع المصمم أحمد الصاوي، موجود 24/7 عشان أساعدك في:\n\n🎨 تعرف على خدماتنا المتنوعة\n💰 تاخد عروض أسعار فورية ومخصصة\n⏰ تعرف مواعيد المشاريع\n📞 تتواصل مع المصمم مباشرة\n🎁 تستفيد من العروض والخصومات\n\n✨ كمان أقدر:\n• أوديك تطلب المشروع على الواتساب على طول\n• أديك نصايح تصميمية\n• أشرحلك تفاصيل كل خدمة\n\n💬 اكتب اللي عايزه أو جرب: "خدمات" - "أسعار" - "اطلب مشروع"',
     'مرحبا بك': 'مرحباً! 😊 أنا المساعد الرقمي المتطور لـ Elsawy Design\n\n🚀 هدفي مساعدتك في:\n• إيجاد الخدمة المثالية لمشروعك\n• توفير الوقت والجهد\n• ضمان تجربة استثنائية\n\nكيف يمكنني تحقيق رؤيتك الإبداعية اليوم؟',
     'السلام عليكم': 'وعليكم السلام ورحمة الله وبركاته! 🌟 \n\nمرحباً بك في استوديو Elsawy Design للتصميم الإبداعي\n\n🎯 نحن متخصصون في تحويل الأفكار إلى واقع بصري مذهل!\n\nبماذا يمكنني خدمتك اليوم؟',
     'اهلا': '🎉 أهلاً بك في عائلة Elsawy Design! \n\n💡 أنا هنا لأكون دليلك الشخصي في رحلة إنشاء مشروعك المثالي\n\n🔥 دعني أعرض عليك أحدث عروضنا الحصرية!\n\nما نوع التصميم الذي تحلم به؟',
@@ -483,69 +485,105 @@ function sendUserMessage(message) {
 function getBotResponse(userMessage) {
     const lowerMessage = userMessage.toLowerCase().trim();
 
-    // Smart conversation memory
-    const conversationContext = localStorage.getItem('chatContext') || '';
+    // قاعدة معرفية متقدمة للإجابة الذكية
+    const knowledgeBase = {
+        pricing: ['سعر', 'كم', 'تكلفة', 'فلوس', 'ثمن', 'كلفة', 'بكام', 'price', 'cost'],
+        timing: ['وقت', 'مدة', 'متى', 'خلال', 'كام يوم', 'التسليم', 'time', 'duration', 'when'],
+        contact: ['تواصل', 'رقم', 'اتصال', 'كلم', 'واتس', 'موبايل', 'contact', 'call', 'phone'],
+        services: ['شغل', 'خدمة', 'ايه', 'تعمل', 'خدمات', 'مشاريع', 'services', 'work'],
+        order: ['طلب', 'عايز', 'أريد', 'محتاج', 'order', 'اطلب', 'want', 'need'],
+        discount: ['عرض', 'خصم', 'تخفيض', 'offer', 'discount', 'sale'],
+        quality: ['جودة', 'quality', 'good', 'كويس', 'ممتاز'],
+        portfolio: ['أعمال', 'portfolio', 'شغل سابق', 'examples', 'samples']
+    };
 
-    // Advanced keyword matching with multiple word support
-    const keywords = Object.keys(botResponses).filter(key => key !== 'default');
-
-    // Find exact matches first
-    for (const key of keywords) {
-        if (lowerMessage === key || lowerMessage.includes(key)) {
-            return botResponses[key];
+    // محرك البحث الذكي
+    for (const [category, keywords] of Object.entries(knowledgeBase)) {
+        if (keywords.some(keyword => lowerMessage.includes(keyword))) {
+            switch(category) {
+                case 'pricing': return botResponses['السعر'] || generateSmartResponse('pricing', lowerMessage);
+                case 'timing': return botResponses['الوقت'] || generateSmartResponse('timing', lowerMessage);
+                case 'contact': return botResponses['التواصل'] || generateSmartResponse('contact', lowerMessage);
+                case 'services': return botResponses['الخدمات'] || generateSmartResponse('services', lowerMessage);
+                case 'order': return botResponses['طلب مشروع'] || generateSmartResponse('order', lowerMessage);
+                case 'discount': return botResponses['عرض خاص'] || generateSmartResponse('discount', lowerMessage);
+                case 'quality': return generateSmartResponse('quality', lowerMessage);
+                case 'portfolio': return generateSmartResponse('portfolio', lowerMessage);
+            }
         }
     }
 
-    // Enhanced pattern matching with context awareness
-    if (lowerMessage.includes('سعر') || lowerMessage.includes('كم') || lowerMessage.includes('تكلفة') || lowerMessage.includes('فلوس') || lowerMessage.includes('ثمن') || lowerMessage.includes('كلفة')) {
-        return botResponses['السعر'];
+    // إجابات شخصية ذكية
+    if (lowerMessage.includes('ازيك') || lowerMessage.includes('عامل') || lowerMessage.includes('حالك')) {
+        return '😊 الحمد لله تمام! مشتغل على مشاريع إبداعية جديدة.\n\n🎨 عندنا النهارده تصاميم روعة!\n\nإيه اللي تقدر أساعدك فيه؟';
     }
 
-    if (lowerMessage.includes('وقت') || lowerMessage.includes('مدة') || lowerMessage.includes('متى') || lowerMessage.includes('خلال') || lowerMessage.includes('كام يوم') || lowerMessage.includes('التسليم')) {
-        return botResponses['الوقت'];
+    if (lowerMessage.includes('شكر') || lowerMessage.includes('thanks')) {
+        return '🙏 العفو! ده واجبنا.\n\n💫 دايماً في خدمتك!\n\n📞 لو محتاج أي حاجة تانية، كلمني على طول.';
     }
 
-    if (lowerMessage.includes('تواصل') || lowerMessage.includes('رقم') || lowerMessage.includes('اتصال') || lowerMessage.includes('كلم') || lowerMessage.includes('واتس') || lowerMessage.includes('موبايل')) {
-        return botResponses['التواصل'];
+    // نظام الإجابة الذكية التلقائي
+    return generateIntelligentResponse(lowerMessage);
+}
+
+// وظيفة توليد إجابات ذكية
+function generateSmartResponse(category, message) {
+    const responses = {
+        pricing: '💰 الأسعار بتختلف حسب نوع المشروع:\n\n🎨 بوسترات: من 100 جنيه\n🏷️ لوجوهات: من 300 جنيه\n🎬 موشن جرافيك: من 500 جنيه\n💻 مواقع: من 800 جنيه\n\n📱 للسعر الدقيق، كلمنا على: +201093376913',
+        timing: '⏰ وقت التنفيذ:\n\n⚡ تصاميم بسيطة: 1-2 يوم\n🎨 مشاريع متوسطة: 3-5 أيام\n🏢 مشاريع كبيرة: 1-2 أسبوع\n\n💬 التسليم العاجل متاح!',
+        contact: '📞 تواصل معانا:\n\n📱 واتساب: +201093376913\n📧 إيميل: amk.ahmed2xd@gmail.com\n\n🌐 متاحين 24/7',
+        services: '🎨 خدماتنا:\n\n✅ تصميم لوجوهات\n✅ بوسترات تعليمية\n✅ موشن جرافيك\n✅ تصميم مواقع\n✅ سوشيال ميديا\n\n💡 إيه اللي يهمك منهم؟',
+        order: '🚀 للطلب:\n\n1️⃣ حدد نوع المشروع\n2️⃣ اتصل بينا: +201093376913\n3️⃣ ناقش التفاصيل\n4️⃣ استلم تصميمك!\n\n⚡ جاهزين نبدأ؟',
+        discount: '🎁 عروض حصرية:\n\n💥 خصم 20% للطلاب\n🔥 خصم 15% للعملاء الجدد\n⭐ باقات مخفضة متاحة\n\n📞 اتصل دلوقتي: +201093376913',
+        quality: '⭐ الجودة عندنا:\n\n✅ تصاميم أصلية 100%\n✅ دقة عالية في التنفيذ\n✅ مراجعات مجانية\n✅ ضمان الرضا التام\n\n🏆 +500 مشروع ناجح!',
+        portfolio: '🎨 شوف أعمالنا:\n\n📱 زور قسم المشاريع في الموقع\n🌟 +500 تصميم احترافي\n💎 عملاء راضين 100%\n\n🔥 تقدر تطلب أمثلة خاصة!'
+    };
+    return responses[category] || botResponses.default;
+}
+
+// محرك الذكاء الاصطناعي للإجابة على أي سؤال
+function generateIntelligentResponse(message) {
+    // تحليل نية المستخدم
+    const intentPatterns = {
+        question: ['إزاي', 'ليه', 'كيف', 'why', 'how', 'what', 'ايه', 'هل'],
+        help: ['مساعدة', 'help', 'ساعدني', 'محتاج'],
+        compliment: ['جميل', 'رائع', 'ممتاز', 'حلو', 'great'],
+        complaint: ['مش', 'سيء', 'bad', 'problem'],
+    };
+
+    for (const [intent, patterns] of Object.entries(intentPatterns)) {
+        if (patterns.some(p => message.includes(p))) {
+            switch(intent) {
+                case 'question':
+                    return '🤔 سؤال جيد!\n\n💡 بص، أنا هنا عشان أساعدك في أي حاجة تخص التصميم.\n\n📞 لو السؤال محتاج تفاصيل أكتر، كلمنا على: +201093376913\n\n🎯 أو اكتب سؤالك بشكل أوضح وهرد عليك فوراً!';
+                case 'help':
+                    return '🆘 أكيد هساعدك!\n\n💬 قولي محتاج إيه بالظبط:\n• معلومات عن الخدمات؟\n• استفسار عن الأسعار؟\n• طلب مشروع جديد؟\n• أي حاجة تانية؟\n\n⚡ أنا جاهز!';
+                case 'compliment':
+                    return '🥰 شكراً جداً!\n\n✨ كلامك ده بيدينا طاقة إيجابية.\n\n🚀 جاهزين نخدمك بأفضل شكل!\n\n💪 عايز نبدأ مشروع جديد؟';
+                case 'complaint':
+                    return '😔 آسفين لو في أي مشكلة.\n\n🔧 قولنا إيه المشكلة عشان نحلها فوراً.\n\n📞 أو كلمنا مباشرة: +201093376913\n\n💙 راحتك أهم حاجة عندنا!';
+            }
+        }
     }
 
-    if (lowerMessage.includes('شغل') || lowerMessage.includes('خدمة') || lowerMessage.includes('ايه') || lowerMessage.includes('تعمل') || lowerMessage.includes('خدمات') || lowerMessage.includes('مشاريع')) {
-        return botResponses['الخدمات'];
+    // الرد الافتراضي الذكي
+    return `🤖 فهمت! بتسأل عن: "${message}"\n\n💡 **أقدر أساعدك في:**\n\n🎨 معرفة خدماتنا بالتفصيل\n💰 الأسعار والعروض\n⏰ مواعيد التسليم\n📞 التواصل المباشر\n🎁 العروض الخاصة\n\n✨ **جرب تسأل عن:**\n"كم سعر اللوجو؟"\n"عندكم إيه؟"\n"عايز أطلب مشروع"\n\n🚀 أو كلمني مباشرة: +201093376913`;
+}
+
+// Typing effect function
+function typeWriterEffect(element, text, speed = 30) {
+    let i = 0;
+    element.innerHTML = '';
+    
+    function type() {
+        if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+        }
     }
-
-    if (lowerMessage.includes('طلب') || lowerMessage.includes('عايز') || lowerMessage.includes('أريد') || lowerMessage.includes('محتاج') || lowerMessage.includes('order') || lowerMessage.includes('اطلب')) {
-        return botResponses['طلب مشروع'];
-    }
-
-    if (lowerMessage.includes('واتساب مباشر') || lowerMessage.includes('whatsapp') || lowerMessage.includes('واتس اب') || lowerMessage.includes('المباشر')) {
-        return botResponses['واتساب مباشر'];
-    }
-
-    if (lowerMessage.includes('عرض') || lowerMessage.includes('خصم') || lowerMessage.includes('تخفيض') || lowerMessage.includes('offer')) {
-        return botResponses['عرض خاص'];
-    }
-
-    if (lowerMessage.includes('استشارة') || lowerMessage.includes('مشورة') || lowerMessage.includes('نصيحة') || lowerMessage.includes('consultation')) {
-        return botResponses['استشارة'];
-    }
-
-    // Personality responses
-    if (lowerMessage.includes('ازيك') || lowerMessage.includes('عامل') || lowerMessage.includes('حالك') || lowerMessage.includes('ايه أخبارك')) {
-        return '😄 الحمد لله تمام! ومشتغل على مشاريع رائعة كتير.\n\n🎨 النهاردة خلصت 3 لوجوهات و 5 بوسترات جديدة!\n\nإيه اللي جابك لعندنا؟ عايز تعمل مشروع إبداعي جديد؟';
-    }
-
-    if (lowerMessage.includes('ممتاز') || lowerMessage.includes('رائع') || lowerMessage.includes('جميل') || lowerMessage.includes('حلو') || lowerMessage.includes('perfect') || lowerMessage.includes('excellent')) {
-        return '🥰 شكراً لذوقك الراقي! ده يدينا طاقة إيجابية نكمل بيها.\n\n🚀 عايز نبدأ في مشروع جديد مع بعض؟\n\n💡 عندي أفكار إبداعية كتير ممكن تعجبك!';
-    }
-
-    if (lowerMessage.includes('مين') || lowerMessage.includes('who') || lowerMessage.includes('أنت مين')) {
-        return '🤖 أنا المساعد الذكي المطور خصيصاً لـ Elsawy Design\n\n⚡ **قدراتي:**\n• فهم احتياجاتك بدقة\n• تقديم معلومات فورية\n• ربطك بالمصمم مباشرة\n• متابعة طلباتك 24/7\n\n🎯 هدفي الوحيد: تحقيق رؤيتك الإبداعية!';
-    }
-
-    // Store conversation context
-    localStorage.setItem('chatContext', lowerMessage);
-
-    return botResponses.default;
+    
+    type();
 }
 
 // Add typing effect and message status
